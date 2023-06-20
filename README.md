@@ -3,7 +3,8 @@ In this quickstart, you deploy a simple web server containerized application to 
 
 This quickstart assumes a basic understanding of Kubernetes.
 
-##Before you begin
+## Before you begin
+
 Take the following steps to enable the Kubernetes Engine API:
 In the Google Cloud console, on the project selector page, select or create a Google Cloud project.
 
@@ -16,12 +17,13 @@ Enable the Artifact Registry and Google Kubernetes Engine APIs.
 
 Enable the APIs
 
-##Launch Cloud Shell
+## Launch Cloud Shell
+
 In this tutorial you will use Cloud Shell, which is a shell environment for managing resources hosted on Google Cloud.
 
 Cloud Shell comes preinstalled with the Google Cloud CLI and kubectl command-line tool. The gcloud CLI provides the primary command-line interface for Google Cloud, and kubectl provides the primary command-line interface for running commands against Kubernetes clusters.
 
-##Launch Cloud Shell:
+## Launch Cloud Shell:
 
 Go to the Google Cloud console.
 
@@ -33,6 +35,7 @@ A Cloud Shell session opens inside a frame lower on the console. You use this sh
 
 
 ***gcloud config set project PROJECT_ID***
+
 1.Replace PROJECT_ID with your project ID.
 
 2.Create a GKE cluster
@@ -43,6 +46,7 @@ A cluster consists of at least one cluster control plane machine and multiple wo
 
 ***gcloud container clusters create-auto hello-cluster \
     --location=us-central1***
+    
 Note: It might take several minutes to finish creating the cluster.
 4.Get authentication credentials for the cluster
 After creating your cluster, you need to get authentication credentials to interact with the cluster:
@@ -50,6 +54,7 @@ After creating your cluster, you need to get authentication credentials to inter
 
 ***gcloud container clusters get-credentials hello-cluster \
     --location us-central1***
+    
 This command configures kubectl to use the cluster you created.
 
 5.Deploy an application to the cluster
@@ -63,6 +68,7 @@ To run hello-app in your cluster, you need to deploy the application by running 
 
 ***kubectl create deployment hello-server \
     --image=us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0***
+    
 This Kubernetes command, kubectl create deployment, creates a Deployment named hello-server. The Deployment's Pod runs the hello-app container image.
 
 In this command:
@@ -78,6 +84,7 @@ After deploying the application, you need to expose it to the internet so that u
     --type LoadBalancer \
     --port 80 \
     --target-port 8080***
+    
 Passing in the --type LoadBalancer flag creates a Compute Engine load balancer for your container. The --port flag initializes public port 80 to the internet and the --target-port flag routes the traffic to port 8080 of the application.
 
 Load balancers are billed per Compute Engine's load balancer pricing.
@@ -87,28 +94,31 @@ Inspect and view the application
 
 
 ***kubectl get pods***
+
 You should see one hello-server Pod running on your cluster.
 
 10.Inspect the hello-server Service by using kubectl get service:
 
 
 ***kubectl get service hello-server***
+
 From this command's output, copy the Service's external IP address from the EXTERNAL-IP column.
 
 Note: You might need to wait several minutes before the Service's external IP address populates. If the application's external IP is <pending>, run kubectl get again.
 11.View the application from your web browser by using the external IP address with the exposed port:
 
 
-***http://EXTERNAL_IP***
+http://EXTERNAL_IP
+    
 You have just deployed a containerized web application to GKE.
 
-##Clean up
+## Clean up
 To avoid incurring charges to your Google Cloud account for the resources used on this page, follow these steps.
 
 ##Delete the application's Service by running kubectl delete:
 
 
-##kubectl delete service hello-server
+## kubectl delete service hello-server
 This command deletes the Compute Engine load balancer that you created when you exposed the Deployment.
 
 Delete your cluster by running gcloud container clusters delete:
@@ -116,7 +126,8 @@ Delete your cluster by running gcloud container clusters delete:
 
 ***gcloud container clusters delete hello-cluster \
     --location us-central1***
-##Optional: hello-app code review
+    
+## Optional: hello-app code review
 hello-app is a simple web server application that consists of two files: main.go and a Dockerfile.
 
 hello-app is packaged as a Docker container image. Container images are stored in any Docker image registry, such as Artifact Registry. We host hello-app in a Artifact Registry repository at us-docker.pkg.dev/google-samples/containers/gke/hello-app.
